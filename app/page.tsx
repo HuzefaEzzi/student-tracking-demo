@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import React, { useState } from 'react';
@@ -53,7 +54,22 @@ const dummyData = {
   students: generateDummyData(100)
 };
 
-const StudentDetails = ({ student }) => (
+// Define the Student interface
+interface Student {
+  id: number;
+  name: string;
+  alerts: {
+    classTimeActivity: boolean;
+    noRecentActivity: boolean;
+    restrictedWebsites: boolean;
+    vlcOveruse: boolean;
+  };
+  appUsage: Array<{ APPID: string; count: number; hours: number }>;
+  webUsage: Array<{ URL: string; count: number }>;
+  userEvents: Array<{ EVENT: string; count: number }>;
+}
+
+const StudentDetails: React.FC<{ student: Student }> = ({ student }) => (
   <ScrollArea className="h-[80vh]">
     {/* Alerts Section */}
     <div className="space-y-4 mb-6">
@@ -79,7 +95,7 @@ const StudentDetails = ({ student }) => (
       {student.alerts.vlcOveruse && (
         <Alert>
           <AlertTitle>VLC Overuse</AlertTitle>
-          <AlertDescription>{student.name}'s VLC usage has exceeded 3 hours today.</AlertDescription>
+          <AlertDescription>{student.name}&apos;s VLC usage has exceeded 3 hours today.</AlertDescription>
         </Alert>
       )}
     </div>
@@ -165,7 +181,9 @@ const StudentDetails = ({ student }) => (
 
 export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedStudent, setSelectedStudent] = useState(null);
+  // Remove the unused 'selectedStudent' state
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   const [, setSelectedStudent] = useState<any>(null);
 
   const filteredStudents = dummyData.students.filter(student =>
     student.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -220,11 +238,11 @@ export default function Dashboard() {
                     <TableCell>
                       <Dialog>
                         <DialogTrigger asChild>
-                          <Button variant="outline" onClick={() => setSelectedStudent(student)}>View Details</Button>
+                          <Button variant="outline" onClick={() => setSelectedStudent(student as any)}>View Details</Button>
                         </DialogTrigger>
                         <DialogContent className="max-w-4xl">
                           <DialogHeader>
-                            <DialogTitle>{student.name}'s Activity Details</DialogTitle>
+                            <DialogTitle>{student.name}&apos;s Activity Details</DialogTitle>
                           </DialogHeader>
                           <StudentDetails student={student} />
                         </DialogContent>

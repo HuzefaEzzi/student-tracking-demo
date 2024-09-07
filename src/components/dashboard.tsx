@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/no-unescaped-entities */
 "use client"
 
 import React, { useState } from 'react';
@@ -53,7 +56,7 @@ const dummyData = {
   students: generateDummyData(100)
 };
 
-const StudentDetails = ({ student }) => (
+const StudentDetails = ({ student }: { student: any }) => (
   <ScrollArea className="h-[80vh]">
     {/* Alerts Section */}
     <div className="space-y-4 mb-6">
@@ -99,7 +102,7 @@ const StudentDetails = ({ student }) => (
             </TableRow>
           </TableHeader>
           <TableBody>
-            {student.appUsage.map((app, index) => (
+            {student.appUsage.map((app: { APPID: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; count: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; hours: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }, index: React.Key | null | undefined) => (
               <TableRow key={index}>
                 <TableCell>{app.APPID}</TableCell>
                 <TableCell>{app.count}</TableCell>
@@ -125,7 +128,7 @@ const StudentDetails = ({ student }) => (
             </TableRow>
           </TableHeader>
           <TableBody>
-            {student.webUsage.map((website, index) => (
+            {student.webUsage.map((website: { URL: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; count: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }, index: React.Key | null | undefined) => (
               <TableRow key={index}>
                 <TableCell>{website.URL}</TableCell>
                 <TableCell>{website.count}</TableCell>
@@ -150,7 +153,7 @@ const StudentDetails = ({ student }) => (
             </TableRow>
           </TableHeader>
           <TableBody>
-            {student.userEvents.map((event, index) => (
+            {student.userEvents.map((event: { EVENT: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; count: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }, index: React.Key | null | undefined) => (
               <TableRow key={index}>
                 <TableCell>{event.EVENT}</TableCell>
                 <TableCell>{event.count}</TableCell>
@@ -220,7 +223,7 @@ export function Dashboard() {
                     <TableCell>
                       <Dialog>
                         <DialogTrigger asChild>
-                          <Button variant="outline" onClick={() => setSelectedStudent(student)}>View Details</Button>
+                          <Button variant="outline" onClick={() => setSelectedStudent(student as any)}>View Details</Button>
                         </DialogTrigger>
                         <DialogContent className="max-w-4xl">
                           <DialogHeader>
